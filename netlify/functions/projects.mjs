@@ -42,15 +42,11 @@ export default async (req) => {
     .map((item) => {
       const fields = item.fieldData;
       const imageGrid = fields["image-grid"];
-      const firstImage =
-        Array.isArray(imageGrid) && imageGrid.length > 0
-          ? imageGrid[0].url
-          : null;
 
       return {
         name: fields.name,
         slug: fields.slug,
-        image: firstImage,
+        images: (imageGrid || []).map((i) => i.url).filter(Boolean),
       };
     });
 
