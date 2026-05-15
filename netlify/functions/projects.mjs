@@ -20,9 +20,10 @@ export default async (req) => {
   });
 
   if (!res.ok) {
+    const body = await res.text();
     return Response.json(
-      { error: "Webflow API error", status: res.status },
-      { status: res.statusText === "" ? 502 : res.status }
+      { error: "Webflow API error", status: res.status, detail: body },
+      { status: 502 }
     );
   }
 
